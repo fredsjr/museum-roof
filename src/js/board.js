@@ -1,4 +1,3 @@
-
 import '../css/style.css'
 import {Actor, Color, Engine, Scene, SpriteSheet, TileMap, vec, Vector} from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
@@ -16,7 +15,7 @@ export class Board extends Scene{
         this.game = engine
     }
 
-    startGame(){
+    startGame() {
 
         // hier wordt het plaatje van het board geïmporteerd naar de scene
         let playField = new Actor({
@@ -50,25 +49,12 @@ export class Board extends Scene{
         });
 
         for (let cell of tileMap.tiles) {
-            const sprite = board.getSprite(0,0);
+            const sprite = board.getSprite(0, 0);
             if (sprite) {
                 cell.addGraphic(sprite)
             }
         }
-
-}
-
-}
-
-import { Actor } from "excalibur";
-import { Resources } from "./resources.js";
-
-export class Board extends Actor {
-    constructor() {
-        super({
-            width: Resources.Board.width,
-            height: Resources.Board.height,
-        });
     }
 }
+
 

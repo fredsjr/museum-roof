@@ -1,8 +1,8 @@
 import '../css/style.css'
 import { Actor, Engine, Vector, Scene } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
-import {StartScreen} from "./startscreen.js";
-import { BoardScreen } from './boardgame.js'
+import { StartScreen } from "./startscreen.js";
+import { BoardScreen } from './boardscreen.js'
 
 export class Game extends Engine {
 

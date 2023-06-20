@@ -10,6 +10,11 @@ export class Fish extends Actor {
         });
     }
 
+    onInitialize(_engine) {
+        this.graphics.use(Resources.Fish.toSprite())
+        this.pos = new Vector(409, 301)
+    }
+
     onPreUpdate(engine, delta) {
         let xspeed = 0;
         let yspeed = 0;
