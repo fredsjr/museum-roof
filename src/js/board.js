@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import '../css/style.css'
 import {Actor, Color, Engine, Scene, SpriteSheet, TileMap, vec, Vector} from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
@@ -58,3 +59,16 @@ export class Board extends Scene{
 }
 
 }
+=======
+import { Actor } from "excalibur";
+import { Resources } from "./resources.js";
+
+export class Board extends Actor {
+    constructor() {
+        super({
+            width: Resources.Board.width,
+            height: Resources.Board.height,
+        });
+    }
+}
+>>>>>>> origin/master
