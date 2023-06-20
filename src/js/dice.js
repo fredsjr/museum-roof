@@ -9,6 +9,5 @@ export class Dice extends Actor {
     onInitialize(_engine) {
         let number = Math.floor(Math.random() * 6 + 1)
         console.log(`${number}`)
-
     }
 }

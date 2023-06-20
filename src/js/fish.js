@@ -27,5 +27,4 @@ export class Fish extends Actor {
         }
         this.vel = new Vector(xspeed, yspeed);
     }
-
 }
