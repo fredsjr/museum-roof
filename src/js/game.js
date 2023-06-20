@@ -1,14 +1,13 @@
 import '../css/style.css'
-import { Actor, Engine, Vector } from "excalibur"
+import { Actor, Engine, Vector, Scene } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
-import { Fish } from './fish.js'
-import { Board } from './board.js'
-import { Dice } from './dice.js'
+import {StartScreen} from "./startscreen.js";
+import { BoardScreen } from './boardgame.js'
 
 export class Game extends Engine {
 
     constructor() {
-        super({ width: 546, height: 600 })
+        super({ width: 1200, height: 900 })
         this.start(ResourceLoader).then(() => this.startGame())
         this.showDebug(true)
         this.debug.transform.showAll = true
@@ -16,20 +15,9 @@ export class Game extends Engine {
 
     startGame() {
         console.log("start de game!")
-        const board = new Actor()
-        board.graphics.use(Resources.Board.toSprite())
-        board.pos = new Vector(273, 300)
-        this.add(board)
-
-        const fish = new Fish()
-        fish.graphics.use(Resources.Fish.toSprite())
-        fish.pos = new Vector(409, 301)
-        this.add(fish)
-
-        fish.on("pointerup", (event) => {
-            const dice = new Dice()
-            this.add(dice)
-        })
+        this.addScene('startScreen', new StartScreen())
+        this.addScene('boardScreen', new BoardScreen())
+        this.goToScene('startScreen')
     }
 }
 
