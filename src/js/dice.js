@@ -1,12 +1,21 @@
 import {Actor, Vector, Label, FontUnit, Font} from "excalibur";
 import {ResourceLoader, Resources} from "./resources.js";
+import {Cop} from "./cop.js";
 
 export class Dice extends Actor {
+    number
+
     constructor() {
-        super();
+        super({
+            width: Resources.Dice.width,
+            height: Resources.Dice.height,
+        });
     }
 
     onInitialize(_engine) {
+        this.graphics.use(Resources.Dice.toSprite());
+        this.pos = new Vector(1100, 100)
+
         this.label = new Label({
             pos: new Vector(600, 600),
             font: new Font({
@@ -20,10 +29,10 @@ export class Dice extends Actor {
     }
 
     roll(){
-        let number = Math.floor(Math.random() * 6 + 1);
-        console.log(`${number}`);
+        this.number = Math.floor(Math.random() * 6 + 1);
+        console.log(`${this.number}`);
 
-        this.label.text = `je rolt een ${number}!`;
+        this.label.text = `je rolt een ${this.number}!`;
         console.log("roll that dice")
     }
 }

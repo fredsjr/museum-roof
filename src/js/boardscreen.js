@@ -1,13 +1,12 @@
-import {Actor, Vector, Scene} from "excalibur";
+import { Actor, Vector, Scene } from "excalibur";
 import { Resources } from "./resources.js";
-import {Fish} from "./fish.js";
-import {Dice} from "./dice.js";
-import {Board} from "./board.js";
+import { Cop } from "./cop.js";
+import { Dice } from "./dice.js";
+import { Board } from "./board.js";
 
 export class BoardScreen extends Scene {
-
-    fish
-    dice
+    cop;
+    dice;
 
     constructor() {
         super({
@@ -17,18 +16,15 @@ export class BoardScreen extends Scene {
     }
 
     onInitialize(_engine) {
-        this.dice = new Dice()
-        this.add(this.dice)
+        this.cop = new Cop();
+        this.width = 52
+        this.add(this.cop);
 
+        this.dice = new Dice();
+        this.add(this.dice);
 
-        this.fish = new Fish()
-        this.add(this.fish)
-
-        this.fish.on("pointerup", (event) => {
-           this.dice.roll()
-        })
-
-        const board = new Board()
-        this.add(board)
+        this.dice.on("pointerup", () => {
+            this.dice.roll();
+        });
     }
 }
