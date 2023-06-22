@@ -4,33 +4,39 @@ import { Dice } from "./dice.js";
 
 export class Cop extends Actor {
 
-    constructor() {
+    dice;
+
+    constructor(dice) {
         super({
             width: 52,
             height: 52,
         });
+        this.dice = dice
     }
 
     onInitialize(_engine) {
         this.graphics.use(Resources.Cop.toSprite());
         this.pos = new Vector(409, 301);
-        console.log(`wahoo ${this.number}`)
     }
 
     onPreUpdate(engine, delta) {
         let xspeed = 0;
         let yspeed = 0;
 
-        if (engine.input.keyboard.wasPressed(Input.Keys.Up) && this.number === 1){
+        if (engine.input.keyboard.wasPressed(Input.Keys.Up) && this.dice.number){
+            this.dice.number--
             yspeed = -3220;
         }
-        if (engine.input.keyboard.wasPressed(Input.Keys.Down)) {
+        if (engine.input.keyboard.wasPressed(Input.Keys.Down) && this.dice.number) {
+            this.dice.number--
             yspeed = 3220;
         }
-        if (engine.input.keyboard.wasPressed(Input.Keys.Left)) {
+        if (engine.input.keyboard.wasPressed(Input.Keys.Left) && this.dice.number) {
+            this.dice.number--
             xspeed = -3220;
         }
-        if (engine.input.keyboard.wasPressed(Input.Keys.Right)) {
+        if (engine.input.keyboard.wasPressed(Input.Keys.Right) && this.dice.number) {
+            this.dice.number--
             xspeed = 3220;
         }
 

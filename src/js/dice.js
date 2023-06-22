@@ -3,13 +3,15 @@ import {ResourceLoader, Resources} from "./resources.js";
 import {Cop} from "./cop.js";
 
 export class Dice extends Actor {
-    number
+    number;
+    dice;
 
-    constructor() {
+    constructor(dice) {
         super({
             width: Resources.Dice.width,
             height: Resources.Dice.height,
         });
+        this.dice = dice;
     }
 
     onInitialize(_engine) {
@@ -34,5 +36,6 @@ export class Dice extends Actor {
 
         this.label.text = `je rolt een ${this.number}!`;
         console.log("roll that dice")
+        return this.number;
     }
 }
