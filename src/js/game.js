@@ -10,15 +10,15 @@ export class Game extends Engine {
     constructor() {
         super({ width: 1200, height: 900 })
         this.start(ResourceLoader).then(() => this.startGame())
-        // this.showDebug(true)
-        // this.debug.transform.showAll = true
+        this.showDebug(true)
+        this.debug.transform.showAll = true
     }
 
     startGame() {
         console.log("start de game!")
         this.addScene('startScreen', new StartScreen())
         this.addScene('boardScreen', new Board())
-        this.goToScene('boardScreen')
+        this.goToScene('startScreen')
     }
 }
 

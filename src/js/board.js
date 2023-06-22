@@ -2,6 +2,7 @@
 import '../css/style.css'
 import {Actor, Color, Engine, Scene, SpriteSheet, TileMap, vec, Vector} from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
+import {Art} from "./art.js";
 
 export class Board extends Scene{
 
@@ -56,6 +57,13 @@ export class Board extends Scene{
             }
         }
 
+
+        for (let i = 0; i < 5; i++){
+            this.Art = new Art
+            this.add(this.Art)
+        }
+
+
         // Create the player actor
         this.player = new Actor({
             pos: new Vector(0, 0), // Initial position
@@ -103,27 +111,6 @@ export class Board extends Scene{
             this.currentTile.y = newY;
         }
     }
-
-
-
-        // // hier wordt de tilemap aangemaakt
-        // let tileMap = new TileMap({
-        //     rows: 10,
-        //     columns: 11,
-        //     tileHeight: 52,
-        //     tileWidth: 52
-        // });
-        //
-        // for (let cell of tileMap.tiles) {
-        //     const sprite = board.getSprite(0,0);
-        //     if (sprite) {
-        //         cell.addGraphic(sprite)
-        //
-        //
-        //
-        //      }
-        //
-        // }
 
 }
 
