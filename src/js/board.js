@@ -3,6 +3,7 @@ import '../css/style.css'
 import {Actor, Color, Engine, Scene, SpriteSheet, TileMap, vec, Vector} from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import {Art} from "./art.js";
+import {Robber} from "./robber.js";
 
 export class Board extends Scene{
 
@@ -27,7 +28,7 @@ export class Board extends Scene{
             anchor: Vector.Zero
         });
 
-        playField.graphics.use(Resources.Board.toSprite());
+        playField.graphics.use(Resources.BlankBoard.toSprite());
 
         this.add(playField);
 
@@ -63,54 +64,57 @@ export class Board extends Scene{
             this.add(this.Art)
         }
 
+        this.Robber = new Robber
+        this.add(this.Robber)
+
 
         // Create the player actor
-        this.player = new Actor({
-            pos: new Vector(0, 0), // Initial position
-            anchor: Vector.Zero,
-            width: 55,
-            height: 55,
-            color: Color.Green // You can change the color as needed
-        });
+    //     this.player = new Actor({
+    //         pos: new Vector(0, 0), // Initial position
+    //         anchor: Vector.Zero,
+    //         width: 55,
+    //         height: 55,
+    //         color: Color.Green // You can change the color as needed
+    //     });
+    //
+    //     this.add(this.player);
+    //
+    //     // Set the initial tile for the player
+    //     this.currentTile = { x: 0, y: 0 };
+    //
+    //     // Attach event listeners to handle button presses
+    //     window.addEventListener("keydown", this.handleKeyPress.bind(this));
+    // }
+    //
+    // handleKeyPress(event) {
+    //     // Handle arrow key presses
+    //     switch (event.key) {
+    //         case "ArrowUp":
+    //             this.movePlayerToTile(this.currentTile.x, this.currentTile.y - 1);
+    //             break;
+    //         case "ArrowDown":
+    //             this.movePlayerToTile(this.currentTile.x, this.currentTile.y + 1);
+    //             break;
+    //         case "ArrowLeft":
+    //             this.movePlayerToTile(this.currentTile.x - 1, this.currentTile.y);
+    //             break;
+    //         case "ArrowRight":
+    //             this.movePlayerToTile(this.currentTile.x + 1, this.currentTile.y);
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    // }
+    //
+    // movePlayerToTile(newX, newY) {
+    //     // Check if the new tile is within the board boundaries
+    //     if (newX >= 0 && newX < 10 && newY >= 0 && newY < 11) {
+    //         // Update the player's position
+    //         this.player.pos = new Vector(newX * 55, newY * 55);
+    //         this.currentTile.x = newX;
+    //         this.currentTile.y = newY;
+    //     }
+    // }
 
-        this.add(this.player);
-
-        // Set the initial tile for the player
-        this.currentTile = { x: 0, y: 0 };
-
-        // Attach event listeners to handle button presses
-        window.addEventListener("keydown", this.handleKeyPress.bind(this));
-    }
-
-    handleKeyPress(event) {
-        // Handle arrow key presses
-        switch (event.key) {
-            case "ArrowUp":
-                this.movePlayerToTile(this.currentTile.x, this.currentTile.y - 1);
-                break;
-            case "ArrowDown":
-                this.movePlayerToTile(this.currentTile.x, this.currentTile.y + 1);
-                break;
-            case "ArrowLeft":
-                this.movePlayerToTile(this.currentTile.x - 1, this.currentTile.y);
-                break;
-            case "ArrowRight":
-                this.movePlayerToTile(this.currentTile.x + 1, this.currentTile.y);
-                break;
-            default:
-                break;
-        }
-    }
-
-    movePlayerToTile(newX, newY) {
-        // Check if the new tile is within the board boundaries
-        if (newX >= 0 && newX < 10 && newY >= 0 && newY < 11) {
-            // Update the player's position
-            this.player.pos = new Vector(newX * 55, newY * 55);
-            this.currentTile.x = newX;
-            this.currentTile.y = newY;
-        }
-    }
-
-}
+}}
 

@@ -8,9 +8,9 @@ import {Board} from "./board.js";
 export class Game extends Engine {
 
     constructor() {
-        super({ width: 1200, height: 900 })
+        super({ width: 1200, height: 700 })
         this.start(ResourceLoader).then(() => this.startGame())
-        this.showDebug(true)
+        this.showDebug(false)
         this.debug.transform.showAll = true
     }
 
