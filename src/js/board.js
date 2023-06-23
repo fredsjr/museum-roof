@@ -3,6 +3,7 @@ import {Actor, Color, Engine, Scene, SpriteSheet, TileMap, vec, Vector} from "ex
 import { Resources, ResourceLoader } from './resources.js'
 import {Art} from "./art.js";
 import { Cop } from "./cop.js";
+import { Robber} from "./robber.js";
 import { Dice } from "./dice.js";
 
 export class Board extends Scene{
@@ -44,7 +45,7 @@ export class Board extends Scene{
             anchor: Vector.Zero
         });
 
-        playField.graphics.use(Resources.Board.toSprite());
+        playField.graphics.use(Resources.BlankBoard.toSprite());
 
         this.add(playField);
 
@@ -74,10 +75,13 @@ export class Board extends Scene{
             }
         }
 
-        for (let i = 0; i < 5; i++){
+        for (let i = 0; i < 8; i++){
             this.Art = new Art
             this.add(this.Art)
         }
+
+        this.Robber = new Robber
+        this.add(this.Robber)
 
         // Attach event listeners to handle button presses
         window.addEventListener("keydown", this.handleKeyPress.bind(this));
@@ -124,4 +128,6 @@ export class Board extends Scene{
             this.currentTile.y = newY;
         }
     }
+
+
 }
