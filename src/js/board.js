@@ -59,7 +59,7 @@ export class Board extends Scene{
         }
 
 
-        for (let i = 0; i < 5; i++){
+        for (let i = 0; i < 8; i++){
             this.Art = new Art
             this.add(this.Art)
         }
