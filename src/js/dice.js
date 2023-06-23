@@ -4,38 +4,53 @@ import {Cop} from "./cop.js";
 
 export class Dice extends Actor {
     number;
-    dice;
 
-    constructor(dice) {
+    constructor() {
         super({
             width: Resources.Dice.width,
             height: Resources.Dice.height,
         });
-        this.dice = dice;
     }
 
     onInitialize(_engine) {
         this.graphics.use(Resources.Dice.toSprite());
-        this.pos = new Vector(1100, 100)
-
-        this.label = new Label({
-            pos: new Vector(600, 600),
-            font: new Font({
-                family: 'impact',
-                size: 40,
-                unit: FontUnit.Px
-            })
-        });
-
-        this.scene.add(this.label);
+        this.pos = new Vector(800, 700)
     }
 
     roll(){
         this.number = Math.floor(Math.random() * 6 + 1);
         console.log(`${this.number}`);
 
-        this.label.text = `je rolt een ${this.number}!`;
-        console.log("roll that dice")
+        if (this.number === 1){
+            this.graphics.use(Resources.Dice1.toSprite());
+            this.pos = new Vector(800, 700)
+        }
+
+        if (this.number === 2){
+            this.graphics.use(Resources.Dice2.toSprite());
+            this.pos = new Vector(800, 700)
+        }
+
+        if (this.number === 3){
+            this.graphics.use(Resources.Dice3.toSprite());
+            this.pos = new Vector(800, 700)
+        }
+
+        if (this.number === 4){
+            this.graphics.use(Resources.Dice4.toSprite());
+            this.pos = new Vector(800, 700)
+        }
+
+        if (this.number === 5){
+            this.graphics.use(Resources.Dice5.toSprite());
+            this.pos = new Vector(800, 700)
+        }
+
+        if (this.number === 6){
+            this.graphics.use(Resources.Dice6.toSprite());
+            this.pos = new Vector(800, 700)
+        }
+
         return this.number;
     }
 }

@@ -1,12 +1,15 @@
-
 import '../css/style.css'
 import {Actor, Color, Engine, Scene, SpriteSheet, TileMap, vec, Vector} from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import {Art} from "./art.js";
+import { Cop } from "./cop.js";
+import { Dice } from "./dice.js";
 
 export class Board extends Scene{
 
-    game
+    game;
+    cop;
+    dice;
 
     constructor() {
         super({ width: 1630, height: 830, backgroundColor: Color.Red});
@@ -15,6 +18,20 @@ export class Board extends Scene{
 
     onInitialize(engine) {
         this.game = engine
+
+        this.dice = new Dice();
+        this.add(this.dice);
+
+        this.dice.on("pointerup", () => {
+            this.dice.roll();
+        });
+
+        // Create the player actor
+        this.cop = new Cop(this.dice);
+        this.add(this.cop);
+
+        // Set the initial tile for the player
+        this.currentTile = { x: 0.5, y: 5.5 };
     }
 
     startGame(){
@@ -57,26 +74,10 @@ export class Board extends Scene{
             }
         }
 
-
         for (let i = 0; i < 5; i++){
             this.Art = new Art
             this.add(this.Art)
         }
-
-
-        // Create the player actor
-        this.player = new Actor({
-            pos: new Vector(0, 0), // Initial position
-            anchor: Vector.Zero,
-            width: 55,
-            height: 55,
-            color: Color.Green // You can change the color as needed
-        });
-
-        this.add(this.player);
-
-        // Set the initial tile for the player
-        this.currentTile = { x: 0, y: 0 };
 
         // Attach event listeners to handle button presses
         window.addEventListener("keydown", this.handleKeyPress.bind(this));
@@ -86,16 +87,28 @@ export class Board extends Scene{
         // Handle arrow key presses
         switch (event.key) {
             case "ArrowUp":
-                this.movePlayerToTile(this.currentTile.x, this.currentTile.y - 1);
+                if (this.dice.number){
+                    this.movePlayerToTile(this.currentTile.x, this.currentTile.y - 1);
+                    this.dice.number--
+                }
                 break;
             case "ArrowDown":
-                this.movePlayerToTile(this.currentTile.x, this.currentTile.y + 1);
+                if (this.dice.number){
+                    this.movePlayerToTile(this.currentTile.x, this.currentTile.y + 1);
+                    this.dice.number--
+                }
                 break;
             case "ArrowLeft":
-                this.movePlayerToTile(this.currentTile.x - 1, this.currentTile.y);
+                if (this.dice.number){
+                    this.movePlayerToTile(this.currentTile.x - 1, this.currentTile.y);
+                    this.dice.number--
+                }
                 break;
             case "ArrowRight":
-                this.movePlayerToTile(this.currentTile.x + 1, this.currentTile.y);
+                if (this.dice.number){
+                    this.movePlayerToTile(this.currentTile.x + 1, this.currentTile.y);
+                    this.dice.number--
+                }
                 break;
             default:
                 break;
@@ -106,11 +119,10 @@ export class Board extends Scene{
         // Check if the new tile is within the board boundaries
         if (newX >= 0 && newX < 10 && newY >= 0 && newY < 11) {
             // Update the player's position
-            this.player.pos = new Vector(newX * 55, newY * 55);
+            this.cop.pos = new Vector(newX * 55, newY * 55);
             this.currentTile.x = newX;
             this.currentTile.y = newY;
         }
     }
-
 }
 

@@ -3,6 +3,7 @@ import { Actor, Engine, Vector, Scene } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { StartScreen } from "./startscreen.js";
 import { BoardScreen } from './boardscreen.js'
+import {Board} from "./board.js";
 
 export class Game extends Engine {
 
@@ -16,7 +17,7 @@ export class Game extends Engine {
     startGame() {
         console.log("start de game!")
         this.addScene('startScreen', new StartScreen())
-        this.addScene('boardScreen', new BoardScreen())
+        this.addScene('boardScreen', new Board())
         this.goToScene('startScreen')
     }
 }
