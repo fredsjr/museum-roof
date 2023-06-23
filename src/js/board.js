@@ -125,4 +125,3 @@ export class Board extends Scene{
         }
     }
 }
-
