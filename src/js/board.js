@@ -39,7 +39,7 @@ export class Board extends Scene{
 
         // hier wordt het plaatje van het board geïmporteerd naar de scene
         let playField = new Actor({
-            pos: new Vector(0, 0),
+            pos: new Vector(400, 20),
             width: 1000,
             height: 700,
             anchor: Vector.Zero
