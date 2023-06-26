@@ -15,6 +15,7 @@ import dice5Image from '../images/dice no5.png'
 import dice6Image from '../images/dice no6.png'
 
 import boef from '../images/Boef.png'
+import collectedboef from '../images/collected-boef.png'
 import image1 from '../images/image1.png'
 import image2 from '../images/image2.png'
 import image3 from '../images/image3.png'
@@ -28,6 +29,7 @@ import schilderijvak from '../images/schilderijvakje.png'
 const Resources = {
     Cop: new ImageSource(copImage),
     boef: new ImageSource(boef),
+    collectedboef: new ImageSource(collectedboef),
     Board: new ImageSource(boardImage),
     Button: new ImageSource(buttonImage),
     BlankBoard: new ImageSource(blankBoard),
@@ -56,6 +58,7 @@ const Resources = {
 const ResourceLoader = new Loader([
     Resources.Cop,
     Resources.boef,
+    Resources.collectedboef,
     Resources.BlankBoard,
     Resources.Board,
     Resources.Button,

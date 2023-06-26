@@ -4,13 +4,14 @@ import { Resources, ResourceLoader } from './resources.js'
 import { StartScreen } from "./startscreen.js";
 import { BoardScreen } from './boardscreen.js'
 import {Board} from "./board.js";
+import {DevTool} from "@excaliburjs/dev-tools";
 
 export class Game extends Engine {
 
     constructor() {
         super({ width: 1200, height: 700 })
         this.start(ResourceLoader).then(() => this.startGame())
-        this.showDebug(false)
+        this.showDebug(true)
         this.debug.transform.showAll = true
     }
 
@@ -22,4 +23,4 @@ export class Game extends Engine {
     }
 }
 
-new Game()
+new DevTool ( new Game() )
