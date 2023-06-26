@@ -1,6 +1,8 @@
-import { Actor, Vector, Input } from "excalibur";
+import {Actor, Vector, Input, Color} from "excalibur";
 import { Resources } from "./resources.js";
 import { Dice } from "./dice.js";
+import {Art} from "./art.js";
+import {Robber} from "./robber.js";
 
 export class Cop extends Actor {
 
@@ -18,9 +20,15 @@ export class Cop extends Actor {
         this.currentTile = {x: 1, y: 5};
         this.movePlayerToTile(1, 5)
 
-
         // Attach event listeners to handle button presses
         window.addEventListener("keydown", this.handleKeyPress.bind(this));
+
+        // this.on("collisionStart", (event) => {
+        //     if (event.other instanceof Robber) {
+        //         console.log("CAUGHT!!");
+        //         event.other.movePlayerToTile(9, 5);
+        //     }
+        // });
     }
 
 handleKeyPress(event) {
@@ -62,6 +70,7 @@ movePlayerToTile(newX, newY) {
         this.pos = new Vector(newX * 55 + 400, newY * 55 + 20);
         this.currentTile = new Vector(newX, newY);
     }
+
 }
 
     onInitialize(_engine) {

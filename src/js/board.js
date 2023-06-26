@@ -14,7 +14,7 @@ export class Board extends Scene{
     robberScore = 0;
     copScore = 8;
     robberLabel;
-    copLabel
+    copLabel;
 
     constructor() {
         super({ width: 1630, height: 830, backgroundColor: Color.Red});
@@ -110,11 +110,11 @@ this.robberLabel = new Label({
         }
 
         for (let i = 0; i < 8; i++){
-            this.Art = new Art
-            this.add(this.Art)
+            let art = new Art()
+            this.add(art)
         }
 
-        this.Robber = new Robber(this.updateScore.bind(this))
+        this.Robber = new Robber(this.updateScore.bind(this), this)
         this.add(this.Robber)
 
     }
@@ -127,6 +127,8 @@ this.robberLabel = new Label({
         this.robberLabel.text = `boef score: ${this.robberScore}`
         this.copLabel.text = `politie score: ${this.copScore}`
     }
+
+
 
 
 }

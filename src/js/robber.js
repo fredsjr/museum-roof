@@ -2,13 +2,15 @@
 import {Actor, Color, Sprite, Vector} from "excalibur";
 import { Resources, ResourceLoader } from './resources.js';
 import { Art } from "./art.js";
+import {Cop} from "./cop.js";
 
 export class Robber extends Actor {
 
     HasArtWork = false
     updateScore
+    scene
 
-    constructor(updateScore) {
+    constructor(updateScore, scene) {
         super({
             pos: new Vector(5, 10), // Initial position
             anchor: Vector.Zero,
@@ -17,6 +19,7 @@ export class Robber extends Actor {
             color: Color.Green // You can change the color as needed
         });
         this.updateScore = updateScore
+        this.scene = scene
 
         // Set the initial tile for the player
         this.currentTile = { x: 9, y: 5 };
@@ -56,8 +59,6 @@ export class Robber extends Actor {
                 this.HasArtWork = false;
                 // this.collected = true
                 this.updateScore(true)
-                console.log("great job")
-                console.log(this.HasArtWork)
             }
             // Update the player's position
             this.pos = new Vector(newX * 55 + 400, newY * 55 + 20);
@@ -103,13 +104,22 @@ export class Robber extends Actor {
                     event.other.kill();
                     this.HasArtWork = true
                     this.color = Color.Yellow;
-                    console.log("gone");
-                    console.log(this.HasArtWork)
 
                 });
             }
-            console.log("move");
+
         });
-        console.log(this.HasArtWork)
+        this.on("collisionStart", (event) => {
+            if (event.other instanceof Cop) {
+                if (this.HasArtWork === true) {
+                    let art = new Art()
+                    this.scene.add(art)
+                    console.log('art created')
+                }
+                this.HasArtWork = false;
+                this.movePlayerToTile(9, 5);
+            }
+        });
+
     }
 }
