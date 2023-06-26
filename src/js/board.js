@@ -1,5 +1,5 @@
 import '../css/style.css'
-import {Actor, Color, Engine, Scene, SpriteSheet, TileMap, vec, Vector} from "excalibur"
+import {Actor, Color, Engine, Font, FontUnit, Label, Scene, SpriteSheet, TileMap, vec, Vector} from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import {Art} from "./art.js";
 import { Cop } from "./cop.js";
@@ -11,6 +11,10 @@ export class Board extends Scene{
     game;
     cop;
     dice;
+    robberScore = 0;
+    copScore = 8;
+    robberLabel;
+    copLabel
 
     constructor() {
         super({ width: 1630, height: 830, backgroundColor: Color.Red});
@@ -55,11 +59,39 @@ export class Board extends Scene{
             grid: {
                 rows: 10,
                 columns: 11,
-                spriteHeight: 52,
-                spriteWidth: 52
+                spriteHeight: 55,
+                spriteWidth: 55,
 
             }
         });
+
+
+        // robber score label
+this.robberLabel = new Label({
+    text: 'boef score: 0',
+    pos: new Vector(100, 100),
+    font: new Font({
+        family: 'impact',
+        size: 24,
+        unit: FontUnit.Px
+    })
+})
+
+        this.add(this.robberLabel)
+
+        // cop score label
+
+        this.copLabel = new Label({
+            text: 'politie score: 8',
+            pos: new Vector(100, 160),
+            font: new Font({
+                family: 'impact',
+                size: 24,
+                unit: FontUnit.Px
+            })
+        })
+
+        this.add(this.copLabel)
 
         for (let x = 0; x <= 9; x ++) {
             for (let y = 0; y <= 10; y ++) {
@@ -71,7 +103,9 @@ export class Board extends Scene{
                 })
                 // tile.anchor = new Vector(0.5,0.5)
                 // tile.anchor.setTo(-1, -1)
+                tile.pos = tile.pos.add(new Vector(400, 20))
                 this.add(tile)
+
             }
         }
 
@@ -80,53 +114,18 @@ export class Board extends Scene{
             this.add(this.Art)
         }
 
-        this.Robber = new Robber
+        this.Robber = new Robber(this.updateScore.bind(this))
         this.add(this.Robber)
 
-        // Attach event listeners to handle button presses
-        window.addEventListener("keydown", this.handleKeyPress.bind(this));
     }
 
-    handleKeyPress(event) {
-        // Handle arrow key presses
-        switch (event.key) {
-            case "ArrowUp":
-                if (this.dice.number){
-                    this.movePlayerToTile(this.currentTile.x, this.currentTile.y - 1);
-                    this.dice.number--
-                }
-                break;
-            case "ArrowDown":
-                if (this.dice.number){
-                    this.movePlayerToTile(this.currentTile.x, this.currentTile.y + 1);
-                    this.dice.number--
-                }
-                break;
-            case "ArrowLeft":
-                if (this.dice.number){
-                    this.movePlayerToTile(this.currentTile.x - 1, this.currentTile.y);
-                    this.dice.number--
-                }
-                break;
-            case "ArrowRight":
-                if (this.dice.number){
-                    this.movePlayerToTile(this.currentTile.x + 1, this.currentTile.y);
-                    this.dice.number--
-                }
-                break;
-            default:
-                break;
+    updateScore(collected){
+        if (collected === true) {
+            this.robberScore += 1;
+            this.copScore -= 1;
         }
-    }
-
-    movePlayerToTile(newX, newY) {
-        // Check if the new tile is within the board boundaries
-        if (newX >= 0 && newX < 10 && newY >= 0 && newY < 11) {
-            // Update the player's position
-            this.cop.pos = new Vector(newX * 55, newY * 55);
-            this.currentTile.x = newX;
-            this.currentTile.y = newY;
-        }
+        this.robberLabel.text = `boef score: ${this.robberScore}`
+        this.copLabel.text = `politie score: ${this.copScore}`
     }
 
 

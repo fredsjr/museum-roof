@@ -19,6 +19,8 @@ export class Art extends Actor {
         this.pos = new Vector(randomX * 55, randomY * 55);
 
         this.graphics.use(Resources.schilderijvak.toSprite());
+
+        this.pos = this.pos.add(new Vector(400, 20))
     }
 
 
