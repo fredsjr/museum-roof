@@ -29,10 +29,17 @@ export class Board extends Scene{
 
         // Create the player actor
         this.cop = new Cop(this.dice);
+        this.cop.currentTile = { x: 9.5, y: 5.5 };
         this.add(this.cop);
 
-        // Set the initial tile for the player
-        this.currentTile = { x: 0.5, y: 5.5 };
+        for (let i = 0; i < 8; i++){
+            this.Art = new Art
+            this.add(this.Art)
+        }
+
+        this.Robber = new Robber(this.dice)
+        this.Robber.currentTile = { x: 0, y: 5 };
+        this.add(this.Robber)
     }
 
     startGame(){
@@ -75,14 +82,6 @@ export class Board extends Scene{
             }
         }
 
-        for (let i = 0; i < 8; i++){
-            this.Art = new Art
-            this.add(this.Art)
-        }
-
-        this.Robber = new Robber
-        this.add(this.Robber)
-
         // Attach event listeners to handle button presses
         window.addEventListener("keydown", this.handleKeyPress.bind(this));
     }
@@ -91,31 +90,36 @@ export class Board extends Scene{
         // Handle arrow key presses
         switch (event.key) {
             case "ArrowUp":
-                if (this.dice.number){
-                    this.movePlayerToTile(this.currentTile.x, this.currentTile.y - 1);
+                if (this.dice.number) {
+                    console.log("aaa")
+                    this.movePlayerToTile(this.cop.currentTile.x, this.cop.currentTile.y - 1);
+                    console.log("bbb")
                     this.dice.number--
                 }
                 break;
             case "ArrowDown":
-                if (this.dice.number){
-                    this.movePlayerToTile(this.currentTile.x, this.currentTile.y + 1);
+                if (this.dice.number) {
+                    this.movePlayerToTile(this.cop.currentTile.x, this.cop.currentTile.y + 1);
                     this.dice.number--
                 }
                 break;
             case "ArrowLeft":
-                if (this.dice.number){
-                    this.movePlayerToTile(this.currentTile.x - 1, this.currentTile.y);
+                if (this.dice.number) {
+                    this.movePlayerToTile(this.cop.currentTile.x - 1, this.cop.currentTile.y);
                     this.dice.number--
                 }
                 break;
             case "ArrowRight":
-                if (this.dice.number){
-                    this.movePlayerToTile(this.currentTile.x + 1, this.currentTile.y);
+                if (this.dice.number) {
+                    this.movePlayerToTile(this.cop.currentTile.x + 1, this.cop.currentTile.y);
                     this.dice.number--
                 }
                 break;
             default:
                 break;
+        }
+        if (this.dice.number === 0) {
+            console.log("dice is 0 i guess")
         }
     }
 
@@ -124,10 +128,11 @@ export class Board extends Scene{
         if (newX >= 0 && newX < 10 && newY >= 0 && newY < 11) {
             // Update the player's position
             this.cop.pos = new Vector(newX * 55, newY * 55);
-            this.currentTile.x = newX;
-            this.currentTile.y = newY;
+            this.Robber.pos = new Vector(newX * 55, newY * 55);
+            this.cop.currentTile.x = newX;
+            this.cop.currentTile.y = newY;
+            this.Robber.currentTile.x = newX;
+            this.Robber.currentTile.y = newY;
         }
     }
-
-
 }

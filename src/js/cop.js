@@ -8,14 +8,15 @@ export class Cop extends Actor {
 
     constructor(dice) {
         super({
-            width: 52,
-            height: 52,
+            width: 54,
+            height: 54,
         });
         this.dice = dice
+        // this.currentTile = { x: 5, y: 0 };
     }
 
     onInitialize(_engine) {
         this.graphics.use(Resources.Cop.toSprite());
-        this.pos = new Vector(26, 300);
+        this.pos = new Vector(520, 300);
     }
 }
