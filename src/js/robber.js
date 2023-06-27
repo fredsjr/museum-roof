@@ -57,8 +57,10 @@ export class Robber extends Actor {
             //when the robber is on this tile it sets HasArtWork back to false
             if (this.HasArtWork == true && newX === 9 && newY === 5){
                 this.HasArtWork = false;
+                this.graphics.use(Resources.boef.toSprite());
                 // this.collected = true
                 this.updateScore(true)
+
             }
             // Update the player's position
             this.pos = new Vector(newX * 55 + 400, newY * 55 + 20);
@@ -75,7 +77,8 @@ export class Robber extends Actor {
                     x: 200,
                     y: 200,
                     width: 741,
-                    height: 919
+                    height: 919,
+                    pos: new Vector(650, 300)
                 });
 
                 // picks a number between 0.00 and 1.00 and with that numbers picks a random image in the if statement
@@ -104,10 +107,9 @@ export class Robber extends Actor {
                     event.other.kill();
                     this.HasArtWork = true
                     this.color = Color.Yellow;
-
+                    this.graphics.use(Resources.collectedboef.toSprite());
                 });
             }
-
         });
         this.on("collisionStart", (event) => {
             if (event.other instanceof Cop) {
@@ -117,6 +119,8 @@ export class Robber extends Actor {
                     console.log('art created')
                 }
                 this.HasArtWork = false;
+                Resources.prisonDoor.play(0.7)
+                this.graphics.use(Resources.boef.toSprite());
                 this.movePlayerToTile(9, 5);
             }
         });

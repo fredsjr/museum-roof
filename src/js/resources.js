@@ -1,5 +1,5 @@
-import { ImageSource, Loader } from 'excalibur'
-import copImage from '../images/fish.png'
+import {ImageSource, Loader, Sound} from 'excalibur'
+import copImage from '../images/police.png'
 import boardImage from '../images/kleinspelbord.png'
 import blankBoard from '../images/blank-board.png'
 import buttonImage from '../images/startbutton.png'
@@ -21,6 +21,9 @@ import image5 from '../images/image5.png'
 import image6 from '../images/image6.png'
 import image7 from '../images/image7.png'
 import schilderijvak from '../images/schilderijvakje.png'
+import razormind from '../sounds/Razormind.mp3'
+import prisonDoor from '../sounds/Prison Cell Door.mp3'
+import collectSound from '../sounds/item-collected.mp3'
 
 
 
@@ -47,6 +50,9 @@ const Resources = {
     image6: new ImageSource(image6),
     image7: new ImageSource(image7),
     schilderijvak: new ImageSource(schilderijvak),
+    razormind: new Sound(razormind),
+    prisonDoor: new Sound(prisonDoor),
+    collectSound: new Sound(collectSound)
 }
 const ResourceLoader = new Loader([
     Resources.Cop,
@@ -71,6 +77,9 @@ const ResourceLoader = new Loader([
     Resources.image6,
     Resources.image7,
     Resources.schilderijvak,
+    Resources.razormind,
+    Resources.prisonDoor,
+    Resources.collectSound
 ])
 
 export { Resources, ResourceLoader }
