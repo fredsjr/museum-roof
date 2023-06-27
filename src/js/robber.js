@@ -9,6 +9,9 @@ export class Robber extends Actor {
     updateScore;
     engine;
     dice;
+    copTurn;
+    rolling;
+
 
     constructor(updateScore, dice) {
         super({
@@ -32,7 +35,6 @@ export class Robber extends Actor {
     }
 
     handleKeyPress(event) {
-        console.log(`robber tries to move, copturn is ${this.scene.copTurn}`)
         // Handle arrow key presses
         if (this.scene.copTurn === false && this.scene.rolling === false) {
             switch (event.key) {
@@ -70,7 +72,6 @@ export class Robber extends Actor {
                 this.scene.copTurn = true;
                 this.scene.rolling = true
 
-                console.log("robber finished, set copturn to true")
 
             }
         }

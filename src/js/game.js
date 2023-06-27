@@ -23,5 +23,5 @@ export class Game extends Engine {
     }
 }
 
-new DevTool ( new Game() )
-// new Game()
+// new DevTool ( new Game() )
+new Game()

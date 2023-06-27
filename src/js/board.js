@@ -17,6 +17,7 @@ export class Board extends Scene{
     robberLabel;
     copLabel;
     copTurn;
+    turnHint;
     rolling;
     time = 300;
     timeLabel
@@ -49,9 +50,6 @@ export class Board extends Scene{
         this.copTurn = true;
         this.rolling = true
 
-        console.log(`copturn is ${this.copTurn}`)
-        console.log(`rolling is ${this.rolling}`)
-
         //Create timer and activate it
         this.timer = new Timer({
             fcn: () => this.onTimer(),
@@ -61,11 +59,8 @@ export class Board extends Scene{
         this.add(this.timer)
         this.timer.start()
 
-    }
-
-    onPreUpdate(_engine, _delta) {
         this.turnHint = new Label({
-            pos: new Vector(100, 200),
+            pos: new Vector(100, 400),
             font: new Font({
                 family: 'impact',
                 size: 24,
@@ -73,6 +68,12 @@ export class Board extends Scene{
             })
         })
         this.add(this.turnHint)
+
+    }
+
+    onPreUpdate(_engine, _delta) {
+
+
         if (this.copTurn === true) {
             this.turnHint.text = `rol de dobbelsteen agent`
         } else {
