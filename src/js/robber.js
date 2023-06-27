@@ -22,13 +22,13 @@ export class Robber extends Actor {
         this.dice = dice;
 
         // Set the initial tile for the player
-        this.currentTile = { x: 9, y: 5 };
-        this.movePlayerToTile(9,5)
+        this.currentTile = {x: 9, y: 5};
+        this.movePlayerToTile(9, 5)
         // this.pos = this.pos.add(new Vector(400, 20))
 
 
         // Attach event listeners to handle button presses
-        window.addEventListener("keydown",(event) => this.handleKeyPress(event));
+        window.addEventListener("keydown", (event) => this.handleKeyPress(event));
     }
 
     handleKeyPress(event) {
@@ -66,7 +66,7 @@ export class Robber extends Actor {
 
 
             //verander de variabele naar false en maak de variabele van robber true
-            if (this.dice.number === 0){
+            if (this.dice.number === 0) {
                 this.scene.copTurn = true;
                 this.scene.rolling = true
 
@@ -81,9 +81,9 @@ export class Robber extends Actor {
         // Check if the new tile is within the board boundaries
         if (newX >= 0 && newX < 10 && newY >= 0 && newY < 11) {
             //when the robber is on this tile it sets HasArtWork back to false
-            if (this.HasArtWork == true && newX === 9 && newY === 5){
+            if (this.HasArtWork == true && newX === 9 && newY === 5) {
                 this.HasArtWork = false;
-                // this.collected = true
+                this.graphics.use(Resources.boef.toSprite());
                 this.updateScore(true)
                 console.log("great job")
                 console.log(this.HasArtWork)
@@ -133,13 +133,26 @@ export class Robber extends Actor {
                     event.other.kill();
                     this.HasArtWork = true
                     this.color = Color.Yellow;
-                    console.log("gone");
-                    console.log(this.HasArtWork)
+                    this.graphics.use(Resources.collectedboef.toSprite());
+
 
                 });
             }
-            console.log("move");
+
         });
-        console.log(this.HasArtWork)
+
+        this.on("collisionStart", (event) => {
+            if (event.other instanceof Cop) {
+                if (this.HasArtWork === true) {
+                    let art = new Art()
+                    this.scene.add(art)
+                    console.log('art created')
+                }
+                this.HasArtWork = false;
+                Resources.prisonDoor.play(0.7)
+                this.graphics.use(Resources.boef.toSprite());
+                this.movePlayerToTile(9, 5);
+            }
+        });
     }
 }

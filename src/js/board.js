@@ -1,5 +1,5 @@
 import '../css/style.css'
-import {Actor, Color, Engine, Font, FontUnit, Label, Scene, SpriteSheet, TileMap, vec, Vector} from "excalibur"
+import {Actor, Color, Engine, Font, FontUnit, Label, Scene, SpriteSheet, TileMap, Timer, vec, Vector} from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import {Art} from "./art.js";
 import { Cop } from "./cop.js";
@@ -17,7 +17,9 @@ export class Board extends Scene{
     robberLabel;
     copLabel;
     copTurn;
-    rolling
+    rolling;
+    time = 300;
+    timeLabel
 
     constructor() {
         super({ width: 1630, height: 830, backgroundColor: Color.Red});
@@ -25,6 +27,8 @@ export class Board extends Scene{
     }
 
     onInitialize(engine) {
+        Resources.razormind.play(0.7)
+
         this.game = engine
 
         this.dice = new Dice();
@@ -47,6 +51,16 @@ export class Board extends Scene{
 
         console.log(`copturn is ${this.copTurn}`)
         console.log(`rolling is ${this.rolling}`)
+
+        //Create timer and activate it
+        this.timer = new Timer({
+            fcn: () => this.onTimer(),
+            repeats: true,
+            interval: 10,
+        })
+        this.add(this.timer)
+        this.timer.start()
+
     }
 
     onPreUpdate(_engine, _delta) {
@@ -60,11 +74,13 @@ export class Board extends Scene{
         })
         this.add(this.turnHint)
         if (this.copTurn === true) {
-            this.copLabel.text = `rol de dobbelsteen agent`
+            this.turnHint.text = `rol de dobbelsteen agent`
         } else {
-            this.copLabel.text = `rol de dobbelsteen dief`
+            this.turnHint.text = `rol de dobbelsteen dief`
         }
     }
+
+
 
     startGame(){
 
@@ -119,6 +135,18 @@ export class Board extends Scene{
 
         this.add(this.copLabel)
 
+        this.timeLabel = new Label({
+            text: 'tijd: 300',
+            pos: new Vector(100, 280),
+            font: new Font({
+                family: 'impact',
+                size: 24,
+                unit: FontUnit.Px
+            })
+        })
+
+        this.add(this.timeLabel)
+
         // this.turnHint = new Label({
         //     pos: new Vector(100, 200),
         //     font: new Font({
@@ -157,8 +185,18 @@ export class Board extends Scene{
         if (collected === true) {
             this.robberScore += 1;
             this.copScore -= 1;
+            Resources.collectSound.play(0.7)
         }
         this.robberLabel.text = `boef score: ${this.robberScore}`
         this.copLabel.text = `politie score: ${this.copScore}`
+    }
+
+    onTimer() {
+        // Every 10ms the timer counts down.
+        this.time -= 0.01;
+        this.timeLabel.text = `Time: ${this.time.toFixed(2)}`;
+        if (this.time <= 0){
+            this.game.goToScene('complete');
+        }
     }
 }
