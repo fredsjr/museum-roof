@@ -111,6 +111,7 @@ export class Robber extends Actor {
                 });
             }
         });
+
         this.on("collisionStart", (event) => {
             if (event.other instanceof Cop) {
                 if (this.HasArtWork === true) {
