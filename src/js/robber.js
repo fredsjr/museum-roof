@@ -1,14 +1,16 @@
-
 import {Actor, Color, Sprite, Vector} from "excalibur";
 import { Resources, ResourceLoader } from './resources.js';
 import { Art } from "./art.js";
+import { Cop } from "./cop.js";
 
 export class Robber extends Actor {
 
     HasArtWork = false
-    updateScore
+    updateScore;
+    engine;
+    dice;
 
-    constructor(updateScore) {
+    constructor(updateScore, dice) {
         super({
             pos: new Vector(5, 10), // Initial position
             anchor: Vector.Zero,
@@ -17,6 +19,7 @@ export class Robber extends Actor {
             color: Color.Green // You can change the color as needed
         });
         this.updateScore = updateScore
+        this.dice = dice;
 
         // Set the initial tile for the player
         this.currentTile = { x: 9, y: 5 };
@@ -25,27 +28,53 @@ export class Robber extends Actor {
 
 
         // Attach event listeners to handle button presses
-        window.addEventListener("keydown", this.handleKeyPress.bind(this));
+        window.addEventListener("keydown",(event) => this.handleKeyPress(event));
     }
 
     handleKeyPress(event) {
+        console.log(`robber tries to move, copturn is ${this.scene.copTurn}`)
         // Handle arrow key presses
-        switch (event.key) {
-            case "ArrowUp":
-                this.movePlayerToTile(this.currentTile.x, this.currentTile.y - 1);
-                break;
-            case "ArrowDown":
-                this.movePlayerToTile(this.currentTile.x, this.currentTile.y + 1);
-                break;
-            case "ArrowLeft":
-                this.movePlayerToTile(this.currentTile.x - 1, this.currentTile.y);
-                break;
-            case "ArrowRight":
-                this.movePlayerToTile(this.currentTile.x + 1, this.currentTile.y);
-                break;
-            default:
-                break;
+        if (this.scene.copTurn === false && this.scene.rolling === false) {
+            switch (event.key) {
+                case "ArrowUp":
+                    if (this.dice.number) {
+                        this.movePlayerToTile(this.currentTile.x, this.currentTile.y - 1);
+                        this.dice.number--;
+                    }
+                    break;
+                case "ArrowDown":
+                    if (this.dice.number) {
+                        this.movePlayerToTile(this.currentTile.x, this.currentTile.y + 1);
+                        this.dice.number--;
+                    }
+                    break;
+                case "ArrowLeft":
+                    if (this.dice.number) {
+                        this.movePlayerToTile(this.currentTile.x - 1, this.currentTile.y);
+                        this.dice.number--;
+                    }
+                    break;
+                case "ArrowRight":
+                    if (this.dice.number) {
+                        this.movePlayerToTile(this.currentTile.x + 1, this.currentTile.y);
+                        this.dice.number--;
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+
+            //verander de variabele naar false en maak de variabele van robber true
+            if (this.dice.number === 0){
+                this.scene.copTurn = true;
+                this.scene.rolling = true
+
+                console.log("robber finished, set copturn to true")
+
+            }
         }
+
     }
 
     movePlayerToTile(newX, newY) {
@@ -66,6 +95,7 @@ export class Robber extends Actor {
     }
 
     onInitialize(engine) {
+        this.engine = engine
         this.graphics.use(Resources.boef.toSprite());
 
         this.on("collisionStart", (event) => {

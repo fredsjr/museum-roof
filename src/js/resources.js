@@ -1,5 +1,5 @@
 import { ImageSource, Loader } from 'excalibur'
-import copImage from '../images/fish.png'
+import copImage from '../images/police.png'
 import boardImage from '../images/kleinspelbord.png'
 import blankBoard from '../images/blank-board.png'
 import buttonImage from '../images/startbutton.png'

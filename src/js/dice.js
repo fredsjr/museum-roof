@@ -10,18 +10,27 @@ export class Dice extends Actor {
             width: Resources.Dice.width,
             height: Resources.Dice.height,
             scale: new Vector ( 0.5, 0.5)
-
         });
     }
 
     onInitialize(_engine) {
         this.graphics.use(Resources.Dice.toSprite());
         this.pos = new Vector(1100, 500)
+
+        this.on("pointerup", () => {
+            console.log(`rolling is ${this.scene.rolling}`)
+            if(this.scene.rolling) {
+                this.roll();
+            } else {
+                console.log("je mag niet rollen")
+            }
+
+        });
     }
 
     roll(){
+
         this.number = Math.floor(Math.random() * 6 + 1);
-        console.log(`${this.number}`);
 
         if (this.number === 1){
             this.graphics.use(Resources.Dice1.toSprite());
@@ -53,6 +62,10 @@ export class Dice extends Actor {
             this.pos = new Vector(1100, 500)
         }
 
-        return this.number;
+        this.scene.rolling = false
+        // omdraaien
+        this.copTurn = !this.copTurn
+
+        //return this.number;
     }
 }
