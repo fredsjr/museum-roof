@@ -10,11 +10,14 @@ export class Board extends Scene{
 
     game;
     cop;
+    Robber;
     dice;
     robberScore = 0;
     copScore = 8;
     robberLabel;
     copLabel;
+    copTurn;
+    rolling;
     time = 300;
     timeLabel
 
@@ -31,16 +34,23 @@ export class Board extends Scene{
         this.dice = new Dice();
         this.add(this.dice);
 
-        this.dice.on("pointerup", () => {
-            this.dice.roll();
-        });
+
 
         // Create the player actor
         this.cop = new Cop(this.dice);
         this.add(this.cop);
 
+        this.Robber = new Robber(this.updateScore.bind(this), this.dice)
+        this.add(this.Robber)
+
         // Set the initial tile for the player
         this.currentTile = { x: 0.5, y: 5.5 };
+
+        this.copTurn = true;
+        this.rolling = true
+
+        console.log(`copturn is ${this.copTurn}`)
+        console.log(`rolling is ${this.rolling}`)
 
         //Create timer and activate it
         this.timer = new Timer({
@@ -50,7 +60,27 @@ export class Board extends Scene{
         })
         this.add(this.timer)
         this.timer.start()
+
     }
+
+    onPreUpdate(_engine, _delta) {
+        this.turnHint = new Label({
+            pos: new Vector(100, 200),
+            font: new Font({
+                family: 'impact',
+                size: 24,
+                unit: FontUnit.Px
+            })
+        })
+        this.add(this.turnHint)
+        if (this.copTurn === true) {
+            this.turnHint.text = `rol de dobbelsteen agent`
+        } else {
+            this.turnHint.text = `rol de dobbelsteen dief`
+        }
+    }
+
+
 
     startGame(){
 
@@ -78,17 +108,16 @@ export class Board extends Scene{
             }
         });
 
-
         // robber score label
-this.robberLabel = new Label({
-    text: 'boef score: 0',
-    pos: new Vector(100, 100),
-    font: new Font({
-        family: 'impact',
-        size: 24,
-        unit: FontUnit.Px
-    })
-})
+        this.robberLabel = new Label({
+            text: 'boef score: 0',
+            pos: new Vector(100, 100),
+            font: new Font({
+                family: 'impact',
+                size: 24,
+                unit: FontUnit.Px
+            })
+        })
 
         this.add(this.robberLabel)
 
@@ -108,7 +137,7 @@ this.robberLabel = new Label({
 
         this.timeLabel = new Label({
             text: 'tijd: 300',
-            pos: new Vector(100, 220),
+            pos: new Vector(100, 280),
             font: new Font({
                 family: 'impact',
                 size: 24,
@@ -117,6 +146,18 @@ this.robberLabel = new Label({
         })
 
         this.add(this.timeLabel)
+
+        // this.turnHint = new Label({
+        //     pos: new Vector(100, 200),
+        //     font: new Font({
+        //         family: 'impact',
+        //         size: 24,
+        //         unit: FontUnit.Px
+        //     })
+        // })
+        // this.add(this.turnHint)
+        // this.copLabel.text = `rol de dobbelsteen ${this.copTurn}`
+
 
         for (let x = 0; x <= 9; x ++) {
             for (let y = 0; y <= 10; y ++) {
@@ -135,13 +176,9 @@ this.robberLabel = new Label({
         }
 
         for (let i = 0; i < 8; i++){
-            let art = new Art()
-            this.add(art)
+            this.Art = new Art
+            this.add(this.Art)
         }
-
-        this.Robber = new Robber(this.updateScore.bind(this), this)
-        this.add(this.Robber)
-
     }
 
     updateScore(collected){
@@ -162,6 +199,4 @@ this.robberLabel = new Label({
             this.game.goToScene('complete');
         }
     }
-
-
 }
