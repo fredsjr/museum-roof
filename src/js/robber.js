@@ -2,6 +2,7 @@ import {Actor, Color, Sprite, Vector} from "excalibur";
 import { Resources, ResourceLoader } from './resources.js';
 import { Art } from "./art.js";
 import { Cop } from "./cop.js";
+import { Cuffs } from "./cuffs.js";
 
 export class Robber extends Actor {
 
@@ -11,7 +12,6 @@ export class Robber extends Actor {
     dice;
     copTurn;
     rolling;
-
 
     constructor(updateScore, dice) {
         super({
@@ -143,12 +143,13 @@ export class Robber extends Actor {
         });
 
         this.on("collisionStart", (event) => {
-            if (event.other instanceof Cop) {
+            if (event.other instanceof Cop && event.other.HasCuffs === true) {
                 if (this.HasArtWork === true) {
                     let art = new Art()
                     this.scene.add(art)
                     console.log('art created')
                 }
+                event.other.HasCuffs = false
                 this.HasArtWork = false;
                 Resources.prisonDoor.play(0.7)
                 this.graphics.use(Resources.boef.toSprite());

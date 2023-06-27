@@ -1,10 +1,12 @@
 import { Actor, Vector } from "excalibur";
 import { Resources } from "./resources.js";
 import { Dice } from "./dice.js";
+import {Cuffs} from "./cuffs.js";
 
 export class Cop extends Actor {
     dice;
     engine;
+    HasCuffs = false;
 
     constructor(dice) {
         super({
@@ -16,7 +18,7 @@ export class Cop extends Actor {
         this.dice = dice;
 
         this.currentTile = { x: 1, y: 5 };
-        this.movePlayerToTile(1, 5);
+        this.movePlayerToTile(0, 5);
 
         window.addEventListener("keydown", (event) => this.handleKeyPress(event));
     }
@@ -79,5 +81,14 @@ export class Cop extends Actor {
     onInitialize(engine) {
         this.engine = engine;
         this.graphics.use(Resources.Cop.toSprite());
+
+        this.on("collisionstart", (event) => {
+            if (this.HasCuffs == false && event.other instanceof Cuffs) {
+                this.HasCuffs = true
+                event.other.kill()
+                console.log("handboeien")
+            }
+        })
     }
+
 }

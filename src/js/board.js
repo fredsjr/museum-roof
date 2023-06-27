@@ -5,6 +5,7 @@ import {Art} from "./art.js";
 import { Cop } from "./cop.js";
 import { Robber} from "./robber.js";
 import { Dice } from "./dice.js";
+import { Cuffs } from "./cuffs.js"
 
 export class Board extends Scene{
 
@@ -159,7 +160,6 @@ export class Board extends Scene{
         // this.add(this.turnHint)
         // this.copLabel.text = `rol de dobbelsteen ${this.copTurn}`
 
-
         for (let x = 0; x <= 9; x ++) {
             for (let y = 0; y <= 10; y ++) {
                 let tile = new Actor({
@@ -168,17 +168,21 @@ export class Board extends Scene{
                     width: 55,
                     height: 55
                 })
-                // tile.anchor = new Vector(0.5,0.5)
-                // tile.anchor.setTo(-1, -1)
                 tile.pos = tile.pos.add(new Vector(400, 20))
                 this.add(tile)
-
             }
         }
 
+        // art spawn for loop
         for (let i = 0; i < 8; i++){
             this.Art = new Art
             this.add(this.Art)
+        }
+
+        // cuffs spawn
+        for (let i = 0; i < 8; i++){
+            this.Cuffs = new Cuffs
+            this.add(this.Cuffs)
         }
     }
 

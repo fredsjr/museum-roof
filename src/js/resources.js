@@ -25,6 +25,8 @@ import image6 from '../images/image6.png'
 import image7 from '../images/image7.png'
 import schilderijvak from '../images/schilderijvakje.png'
 
+import cuffs from '../images/cuffs.png'
+
 import razormind from '../sounds/Razormind.mp3'
 import prisonDoor from '../sounds/Prison Cell Door.mp3'
 import collectSound from '../sounds/item-collected.mp3'
@@ -58,6 +60,8 @@ const Resources = {
     image7: new ImageSource(image7),
     schilderijvak: new ImageSource(schilderijvak),
 
+    cuffs: new ImageSource(cuffs),
+
     razormind: new Sound(razormind),
     prisonDoor: new Sound(prisonDoor),
     collectSound: new Sound(collectSound)
@@ -90,6 +94,8 @@ const ResourceLoader = new Loader([
     Resources.image6,
     Resources.image7,
     Resources.schilderijvak,
+
+    Resources.cuffs,
 
     Resources.razormind,
     Resources.prisonDoor,
