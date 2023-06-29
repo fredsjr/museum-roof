@@ -82,7 +82,7 @@ export class Robber extends Actor {
         // Check if the new tile is within the board boundaries
         if (newX >= 0 && newX < 10 && newY >= 0 && newY < 11) {
             //when the robber is on this tile it sets HasArtWork back to false
-            if (this.HasArtWork == true && newX === 9 && newY === 5) {
+            if (this.HasArtWork == true && newX === 9 && newY === 5 || newX === 0 && newY === 5) {
                 this.HasArtWork = false;
                 this.graphics.use(Resources.boef.toSprite());
                 this.updateScore(true)
@@ -148,6 +148,9 @@ export class Robber extends Actor {
                     let art = new Art()
                     this.scene.add(art)
                     console.log('art created')
+                } if (event.other.HasCuffs === true){
+                    let cuffs = new Cuffs()
+                    this.scene.add(cuffs)
                 }
                 event.other.HasCuffs = false
                 this.HasArtWork = false;

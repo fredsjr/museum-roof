@@ -1,10 +1,5 @@
-import {Actor, CollisionType, Color, Engine, Font, FontUnit, Label, Scene, SpriteSheet, TileMap, Timer, vec, Vector
-} from "excalibur"
+import {Actor, CollisionType, Color, Engine, Font, FontUnit, Label, Scene, SpriteSheet, TileMap, Timer, vec, Vector} from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
-import {Art} from "./art.js";
-import { Cop } from "./cop.js";
-import { Robber} from "./robber.js";
-import { Dice } from "./dice.js";
 
 export class Cuffs extends Actor{
     constructor() {

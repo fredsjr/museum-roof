@@ -14,13 +14,14 @@ export class Board extends Scene{
     Robber;
     dice;
     robberScore = 0;
-    copScore = 8;
+    copScore = 6;
     robberLabel;
     copLabel;
+    stepLabel;
     copTurn;
     turnHint;
     rolling;
-    time = 300;
+    time = 120;
     timeLabel
 
     constructor() {
@@ -29,14 +30,22 @@ export class Board extends Scene{
     }
 
     onInitialize(engine) {
-        Resources.razormind.play(0.7)
+        Resources.razormind.play(0.2)
 
         this.game = engine
 
-        this.dice = new Dice();
+        this.dice = new Dice(this.stepLabel);
         this.add(this.dice);
 
-
+        // Add event listener for a button press or key press
+        window.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight') {
+                // Decrease the number on the stepLabel by 1
+                const currentStep = parseInt(this.stepLabel.text.split(' ')[1]);
+                const newStep = currentStep - 1;
+                this.stepLabel.text = `Stappen: ${newStep}`;
+            }
+        });
 
         // Create the player actor
         this.cop = new Cop(this.dice);
@@ -50,6 +59,8 @@ export class Board extends Scene{
 
         this.copTurn = true;
         this.rolling = true
+
+        console.log(this.rolling)
 
         //Create timer and activate it
         this.timer = new Timer({
@@ -126,7 +137,7 @@ export class Board extends Scene{
         // cop score label
 
         this.copLabel = new Label({
-            text: 'politie score: 8',
+            text: 'politie score: 6',
             pos: new Vector(100, 160),
             font: new Font({
                 family: 'impact',
@@ -136,6 +147,18 @@ export class Board extends Scene{
         })
 
         this.add(this.copLabel)
+
+        this.stepLabel = new Label({
+            text: 'stappen: 0',
+            pos: new Vector(100, 320),
+            font: new Font({
+                family: 'impact',
+                size: 24,
+                unit: FontUnit.Px
+            })
+        })
+
+        this.add(this.stepLabel)
 
         this.timeLabel = new Label({
             text: 'tijd: 300',
@@ -180,7 +203,7 @@ export class Board extends Scene{
         }
 
         // cuffs spawn
-        for (let i = 0; i < 8; i++){
+        for (let i = 0; i < 6; i++){
             this.Cuffs = new Cuffs
             this.add(this.Cuffs)
         }

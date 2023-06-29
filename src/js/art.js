@@ -22,7 +22,4 @@ export class Art extends Actor {
 
         this.pos = this.pos.add(new Vector(400, 20))
     }
-
-
-
 }

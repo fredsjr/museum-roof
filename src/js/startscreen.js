@@ -9,12 +9,13 @@ export class StartScreen extends Scene {
 
         const startbg = new Actor()
         startbg.graphics.use(Resources.Startbg.toSprite())
-        startbg.pos = new Vector(600, 450)
+        startbg.pos = new Vector(700, 450)
+        startbg.scale = new Vector (1.4, 1.0)
         this.add(startbg)
 
         const logo = new Actor()
         logo.graphics.use(Resources.Logo.toSprite())
-        logo.pos = new Vector(600, 160)
+        logo.pos = new Vector(700, 160)
         this.add(logo)
 
         const button = new Button()

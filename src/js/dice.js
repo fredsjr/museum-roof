@@ -5,12 +5,14 @@ import {Cop} from "./cop.js";
 export class Dice extends Actor {
     number;
 
-    constructor() {
+    constructor(stepLabel) {
         super({
             width: Resources.Dice.width,
             height: Resources.Dice.height,
             scale: new Vector ( 0.5, 0.5)
         });
+
+        this.stepLabel = stepLabel;
     }
 
     onInitialize(_engine) {
@@ -31,6 +33,8 @@ export class Dice extends Actor {
     roll(){
 
         this.number = Math.floor(Math.random() * 6 + 1);
+
+        this.stepLabel.text = `stappen: ${this.number}`;
 
         if (this.number === 1){
             this.graphics.use(Resources.Dice1.toSprite());
