@@ -155,6 +155,7 @@ export class Robber extends Actor {
                 event.other.HasCuffs = false
                 this.HasArtWork = false;
                 Resources.prisonDoor.play(0.7)
+                Resources.woop.play(0.7)
                 this.graphics.use(Resources.boef.toSprite());
                 this.movePlayerToTile(9, 5);
             }

@@ -30,6 +30,7 @@ import cuffs from '../images/cuffs.png'
 import razormind from '../sounds/Razormind.mp3'
 import prisonDoor from '../sounds/Prison Cell Door.mp3'
 import collectSound from '../sounds/item-collected.mp3'
+import woop from '../sounds/woop-woop.mp3'
 
 
 
@@ -64,7 +65,8 @@ const Resources = {
 
     razormind: new Sound(razormind),
     prisonDoor: new Sound(prisonDoor),
-    collectSound: new Sound(collectSound)
+    collectSound: new Sound(collectSound),
+    woop: new Sound(woop)
 }
 
 
@@ -99,7 +101,8 @@ const ResourceLoader = new Loader([
 
     Resources.razormind,
     Resources.prisonDoor,
-    Resources.collectSound
+    Resources.collectSound,
+    Resources.woop
 ])
 
 
